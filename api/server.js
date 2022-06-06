@@ -21,4 +21,18 @@ server.get(URL, (req, res) => {
     })
 })
 
+server.get(`${URL}/:id`, (req, res) => {
+    const { id } = req.params
+    Users.findById(id).then(result => {
+        if (result == null) {
+            res.status(404).json({ message: "The user with the specified ID does not exist" })
+            return
+        }
+        res.json(result)
+    })
+    .catch(err => {
+        res.status(500).json({ message: "The user information could not be retrieved" })
+    })
+})
+
 module.exports = server; // EXPORT YOUR SERVER instead of {}
