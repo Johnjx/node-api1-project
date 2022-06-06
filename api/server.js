@@ -53,6 +53,7 @@ server.delete(`${URL}/:id`, (req, res) => {
     Users.remove(id).then(result => {
         if (result == null) {
             res.status(404).json({ message: "The user with the specified ID does not exist" })
+            return
         }
         res.json(result)
     })
